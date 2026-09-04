@@ -1,0 +1,15 @@
+2026-09-04 22:17:04,861 [INFO] crous_monitor: Démarrage du monitor Crous — 2 watcher(s) configuré(s).
+2026-09-04 22:17:10,352 [INFO] crous_monitor: [Crous Saulcy (Metz)] initialisation : 0 logement(s) déjà en ligne référencés.
+2026-09-04 22:17:23,620 [INFO] crous_monitor: [Crous France entière (test)] initialisation : 24 logement(s) déjà en ligne référencés.
+2026-09-04 22:17:24,745 [INFO] crous_monitor: Cycle terminé en 18.5s, prochaine vérification dans 327s.
+2026-09-04 22:21:38,352 [INFO] crous_monitor: Démarrage du monitor Crous — 2 watcher(s) configuré(s).
+2026-09-04 22:21:38,353 [WARNING] crous_monitor: Watcher 'Crous France entière (test)' : aucune URL de webhook Discord définie (voir .env).
+2026-09-04 22:21:42,883 [INFO] crous_monitor: [Crous Saulcy (Metz)] initialisation : 0 logement(s) déjà en ligne référencés.
+2026-09-04 22:21:56,289 [INFO] crous_monitor: [Crous France entière (test)] 1 nouveau(x) logement(s) détecté(s).
+2026-09-04 22:21:56,291 [INFO] crous_monitor: Cycle terminé en 17.5s, prochaine vérification dans 244s.
+2026-09-04 22:26:04,627 [INFO] crous_monitor: [Crous Saulcy (Metz)] aucun nouveau logement (total actuel : 0).
+2026-09-04 22:26:17,051 [INFO] crous_monitor: [Crous France entière (test)] aucun nouveau logement (total actuel : 24).
+2026-09-04 22:26:17,054 [INFO] crous_monitor: Cycle terminé en 16.5s, prochaine vérification dans 263s.
+2026-09-04 22:30:43,936 [INFO] crous_monitor: [Crous Saulcy (Metz)] aucun nouveau logement (total actuel : 0).
+2026-09-04 22:30:56,382 [INFO] crous_monitor: [Crous France entière (test)] aucun nouveau logement (total actuel : 24).
+2026-09-04 22:30:56,385 [INFO] crous_monitor: Cycle terminé en 16.5s, prochaine vérification dans 338s.
