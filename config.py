@@ -50,7 +50,6 @@ class WatcherConfig:
 
 # --- Webhooks Discord fournis par l'utilisateur -----------------------------
 WEBHOOK_SAULCY = os.getenv("DISCORD_WEBHOOK_SAULCY", "")
-WEBHOOK_ALL = os.getenv("DISCORD_WEBHOOK_ALL", "")
 
 # --- URLs de recherche Crous -------------------------------------------------
 # ATTENTION : trouverunlogement.lescrous.fr change régulièrement l'identifiant
@@ -72,10 +71,8 @@ DEFAULT_SAULCY_URL = (
 # Recherche nationale (aucun filtre géographique) : sert à vérifier que le
 # pipeline de scraping + Discord fonctionne bien, puisqu'elle doit renvoyer
 # du nouveau contenu très régulièrement.
-DEFAULT_ALL_URL = "https://trouverunlogement.lescrous.fr/tools/47/search"
 
 SEARCH_URL_SAULCY = os.getenv("CROUS_SEARCH_URL_SAULCY", DEFAULT_SAULCY_URL)
-SEARCH_URL_ALL = os.getenv("CROUS_SEARCH_URL_ALL", DEFAULT_ALL_URL)
 
 # --- Politesse / anti-bannissement ------------------------------------------
 # Intervalle de base entre deux cycles de vérification (en secondes).
@@ -113,11 +110,5 @@ WATCHERS = [
         search_url=SEARCH_URL_SAULCY,
         webhook_url=WEBHOOK_SAULCY,
         state_file=STATE_DIR / "seen_saulcy.json",
-    ),
-    WatcherConfig(
-        name="Crous France entière (test)",
-        search_url=SEARCH_URL_ALL,
-        webhook_url=WEBHOOK_ALL,
-        state_file=STATE_DIR / "seen_all.json",
     ),
 ]

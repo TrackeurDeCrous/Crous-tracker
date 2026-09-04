@@ -1,15 +1,8 @@
 """
 Monitor Crous -> Discord.
 
-Deux watchers tournent en séquentiel (jamais en parallèle, pour rester
-discret vis-à-vis du site) :
   1. "Crous Saulcy (Metz)"        -> notifie uniquement les logements dans
                                       la zone de l'Île du Saulcy
-  2. "Crous France entière (test)" -> notifie TOUS les nouveaux logements
-                                      du site, pour vérifier que le pipeline
-                                      de scraping + webhook fonctionne bien
-                                      (ce watcher doit détecter du nouveau
-                                      contenu très régulièrement).
 
 Lancement :
     python main.py
