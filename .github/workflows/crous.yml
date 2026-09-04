@@ -1,4 +1,4 @@
-name: Crous Tracker
+name: Crous Tracker V2
 
 on:
   schedule:
@@ -38,8 +38,6 @@ jobs:
       - name: Lancer le script
         env:
           DISCORD_WEBHOOK_SAULCY: ${{ secrets.DISCORD_WEBHOOK_SAULCY }}
-          DISCORD_WEBHOOK_ALL: ${{ secrets.DISCORD_WEBHOOK_ALL }}
           CROUS_SEARCH_URL_SAULCY: ${{ secrets.CROUS_SEARCH_URL_SAULCY }}
-          CROUS_SEARCH_URL_ALL: ${{ secrets.CROUS_SEARCH_URL_ALL }}
         run: |
           python main.py
