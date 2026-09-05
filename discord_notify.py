@@ -58,7 +58,7 @@ def send_startup_message(webhook_url: str, watcher_name: str, nb_logements_initi
             {
                 "title": f"🟢 Monitor démarré — {watcher_name}",
                 "description": (
-                    f"{nb_logements_initiaux} logement(s) déjà référencés au démarrage. "
+                    f"{nb_logements_initiaux} logement(s) déjà référencés au démarrage. @505424519268139008 "
                     "Seules les nouvelles annonces à partir de maintenant seront notifiées."
                 ),
                 "color": 0x2ECC71,
