@@ -103,7 +103,7 @@ def send_new_listings(webhook_url: str, watcher_name: str, listings: Iterable[di
                 }
             )
         payload = {
-            "content": f"🏠 {len(chunk)} nouveau(x) logement(s) détecté(s) — {watcher_name}",
+            "content": f"🏠 {len(chunk)} nouveau(x) logement(s) détecté(s) — {watcher_name} @everyone",
             "embeds": embeds,
         }
         ok = _post(webhook_url, payload)
