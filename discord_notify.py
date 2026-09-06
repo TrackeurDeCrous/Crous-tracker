@@ -1,10 +1,3 @@
-"""
-Envoi de messages vers un webhook Discord, avec :
-- respect du rate-limit renvoyé par Discord (HTTP 429 + Retry-After)
-- petites pauses entre les messages pour rester large sous la limite
-  officielle (~30 requêtes/minute par webhook)
-- retries limités en cas d'erreur réseau ponctuelle
-"""
 from __future__ import annotations
 
 import logging
@@ -29,7 +22,7 @@ def _post(webhook_url: str, payload: dict[str, Any], max_retries: int = 3) -> bo
             resp = requests.post(webhook_url, json=payload, timeout=15)
         except requests.RequestException as exc:
             logger.warning("Erreur réseau vers Discord (tentative %s/%s) : %s",
-                            attempt, max_retries, exc)
+                           attempt, max_retries, exc)
             time.sleep(2 * attempt)
             continue
 
@@ -54,16 +47,20 @@ def _post(webhook_url: str, payload: dict[str, Any], max_retries: int = 3) -> bo
 
 def send_startup_message(webhook_url: str, watcher_name: str, nb_logements_initiaux: int) -> None:
     payload = {
+        "content": "<@505424519268139008>",
         "embeds": [
             {
                 "title": f"🟢 Monitor démarré — {watcher_name}",
                 "description": (
-                    f"{nb_logements_initiaux} logement(s) déjà référencés au démarrage. @505424519268139008 "
+                    f"{nb_logements_initiaux} logement(s) déjà référencés au démarrage. "
                     "Seules les nouvelles annonces à partir de maintenant seront notifiées."
                 ),
                 "color": 0x2ECC71,
             }
-        ]
+        ],
+        "allowed_mentions": {
+            "users": ["505424519268139008"]
+        }
     }
     _post(webhook_url, payload)
 
@@ -87,7 +84,7 @@ def send_new_listings(webhook_url: str, watcher_name: str, listings: Iterable[di
     chaque envoi."""
     listings = list(listings)
     if not listings:
-        return
+        return  # Ne fait rien si la liste est vide (pas de message inutile)
 
     for i in range(0, len(listings), MAX_EMBEDS_PER_MESSAGE):
         chunk = listings[i : i + MAX_EMBEDS_PER_MESSAGE]
@@ -102,10 +99,15 @@ def send_new_listings(webhook_url: str, watcher_name: str, listings: Iterable[di
                     "footer": {"text": watcher_name},
                 }
             )
+        
         payload = {
             "content": f"🏠 {len(chunk)} nouveau(x) logement(s) détecté(s) — {watcher_name} @everyone",
             "embeds": embeds,
+            "allowed_mentions": {
+                "parse": ["everyone"]
+            }
         }
+        
         ok = _post(webhook_url, payload)
         if not ok:
             logger.error("Échec d'envoi d'un lot de %s annonce(s) vers Discord.", len(chunk))
