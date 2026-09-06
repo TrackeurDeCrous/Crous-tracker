@@ -1,8 +1,8 @@
 """
 Monitor Crous -> Discord.
 
-  1. "Crous Saulcy (Metz)"        -> notifie uniquement les logements dans
-                                      la zone de l'Île du Saulcy
+  1. "Crous Saulcy (Metz)"         -> notifie uniquement les logements dans
+                                     la zone de l'Île du Saulcy
 
 Lancement :
     python main.py
@@ -59,7 +59,7 @@ def run_watcher_cycle(browser, watcher: config.WatcherConfig, first_run: bool) -
 
     if listings is None:
         logger.error("[%s] abandon du cycle après %s tentatives : %s",
-                      watcher.name, config.MAX_RETRIES, last_error)
+                     watcher.name, config.MAX_RETRIES, last_error)
         if watcher.webhook_url:
             notif.send_error_message(
                 watcher.webhook_url, watcher.name,
@@ -70,13 +70,10 @@ def run_watcher_cycle(browser, watcher: config.WatcherConfig, first_run: bool) -
     current_ids = {item.id for item in listings}
 
     if first_run and not seen:
-        # Premier lancement : on enregistre l'état actuel sans spammer Discord
-        # avec des dizaines/centaines d'annonces déjà existantes.
+        # Premier lancement absolu : on enregistre l'état sans notifier pour éviter le spam initial
         save_seen(watcher.state_file, current_ids)
         logger.info("[%s] initialisation : %s logement(s) déjà en ligne référencés.",
                     watcher.name, len(current_ids))
-        if watcher.webhook_url:
-            notif.send_startup_message(watcher.webhook_url, watcher.name, len(current_ids))
         return
 
     new_ids = current_ids - seen
@@ -89,9 +86,6 @@ def run_watcher_cycle(browser, watcher: config.WatcherConfig, first_run: bool) -
         logger.info("[%s] aucun nouveau logement (total actuel : %s).",
                     watcher.name, len(current_ids))
 
-    # On ne "désapprend" jamais un logement disparu (retiré/loué) : on garde
-    # l'union pour éviter de re-notifier s'il réapparaît brièvement suite à
-    # un rafraîchissement partiel côté site.
     save_seen(watcher.state_file, seen | current_ids)
 
 
